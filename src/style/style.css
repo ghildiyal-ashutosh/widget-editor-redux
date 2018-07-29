@@ -1,0 +1,58 @@
+.fa-trash
+{
+    margin-right: 8px;
+    cursor: pointer;
+}
+.fa-pencil
+{
+    cursor: pointer;
+    margin-right: 8px;
+}
+.fa:hover
+{
+    color:lawngreen;
+}
+
+.fa-file
+{
+    color: blue;
+    margin-right: 8px;
+}
+.fa-plus-circle
+{
+    color : deepskyblue;
+   font-size: 30px;
+    cursor: pointer;
+}
+
+.fa-check-circle
+{
+    color : deepskyblue;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.fa-times:hover
+{
+   font-size: 40px;
+    color : red;
+    cursor: pointer;
+}
+
+
+ .btn-sm:hover
+{
+
+    cursor: pointer;
+}
+#head
+{
+    color: midnightblue;
+    font-size: x-large;
+    font-family: Carlito;
+}
+
+#body
+{
+    background-image: url("background.jpeg");
+}
