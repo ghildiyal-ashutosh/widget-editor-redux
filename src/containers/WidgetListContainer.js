@@ -9,7 +9,21 @@ const stateToPropsMapper = state => (
     }
 )
 
-export const WidgetListContainer = connect(stateToPropsMapper)(WidgetListComponent)
+const dispatchToPropsMapper = dispatch => (
+    {
+        deleteWidget: (widgetId) => dispatch({
+            type: 'DELETE_WIDGET',
+            widgetId: widgetId
+        }),
+
+        createWidget: (widget) => dispatch({
+            type: 'CREATE_WIDGET',
+            widget : widget
+        })
+    }
+)
+
+export const WidgetListContainer = connect(stateToPropsMapper,dispatchToPropsMapper)(WidgetListComponent)
 
 
 
