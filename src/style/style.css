@@ -52,6 +52,12 @@
     font-family: Carlito;
 }
 
+.selectWidget, .addWidget
+{
+    margin-right: 8px;
+    cursor: pointer;
+}
+
 #body
 {
     background-image: url("background.jpeg");
