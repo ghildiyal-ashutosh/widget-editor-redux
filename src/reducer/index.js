@@ -1,11 +1,11 @@
 
 let initialState = {
     widgets: [
-        {title: 'Widget-1', id:  123, widgetType: 'Heading'},
-        {title: 'Widget-2', id : 223, widgetType: 'Image'},
-        {title: 'Widget-3', id : 220, widgetType: 'Link'},
-        {title: 'Widget-4', id : 226, widgetType: 'List'},
-        {title: 'Widget-5', id : 228, widgetType: 'Paragraph'},
+        {title: 'Widget-1', id:  123, widgetType: 'Heading Widget',text: "Cheebu" },
+        {title: 'Widget-2', id : 223, widgetType: 'Image Widget', imgLink:"https://picsum.photos/300/200/?random" },
+        {title: 'Widget-3', id : 220, widgetType: 'Link Widget', link: "www.youtube.com"},
+        {title: 'Widget-4', id : 226, widgetType: 'List Widget', layout: 'ol', listItems: 'item 1\nitem 2\nitem 3\nitem 4'},
+        {title: 'Widget-5', id : 228, widgetType: 'Paragraph Widget', paraText: "Hello World!!! \n Carpe Diem"},
     ]
 };
 
@@ -35,19 +35,13 @@ export const WidgetReducer = (state = initialState,action) =>
                 widgets:state.widgets.map(widget => {
                     if (widget.id === action.widget.id)
                     {
-                        widget.widgetType = action.widget.widgetType
-                        widget.title = action.widget.title
-                        console.log(widget)
-                        return widget
+                        return action.widget
                     }
                     else
                     {
                         return widget
                     }
-
-
-
-                })
+                    })
 
             }
             break;

@@ -1,17 +1,34 @@
 import React from 'react'
-import {Image} from "./Image"
-import {List} from "./List"
-import {Link} from "./Link"
-import {Heading} from "./Heading";
-import {Paragraph} from "./Paragraph"
+import {ImageWidget} from "./ImageWidget"
+import {ListWidget} from "./ListWidget"
+import {LinkWidget} from "./LinkWidget"
+import {HeadingWidget} from "./HeadingWidget";
+import {ParagraphWidget} from "./ParagraphWidget"
+import ToggleButton from 'react-toggle-button'
 import styles from "../style/style.css"
 
-export const WidgetListComponent = ({widgets,deleteWidget,createWidget,updateWidget}) =>
+export const WidgetListComponent = ({widgets,deleteWidget,createWidget,updateWidget, saveWidget,previewWidget}) =>
  {
-     let widgetTitle,widgetType;
+     let widgetTitle,widgetType,widgetType2;
+     let value = 0;
      return (
      <div>
-         <h1> Widget-List : ({widgets.length})</h1>
+         <div
+             className= "row float-right">
+             <button
+                 onClick={saveWidget}
+                 className= "btn btn-sm btn-success">
+                     Save
+                 </button>
+                   Preview <ToggleButton
+                             value={value}
+                             id = "toggle"
+                               onClick={() => {
+                                   value = 1;
+                               }}/>
+         </div>
+         <br/> <br/> <br/>
+
          <ul className="list-group">
 
              <li className="list-group-item">
@@ -22,11 +39,11 @@ export const WidgetListComponent = ({widgets,deleteWidget,createWidget,updateWid
 
                      <select ref = {node => widgetType = node}
                          className="col-3  selectWidget">
-                         <option value = "List"> List</option>
-                         <option value = "Paragraph"> Paragraph</option>
-                         <option value = "Heading"> Heading</option>
-                         <option value = "Link"> Link</option>
-                         <option value = "Image"> Image</option>
+                         <option value = "List Widget"> List</option>
+                         <option value = "Paragraph Widget"> Paragraph</option>
+                         <option value = "Heading Widget"> Heading</option>
+                         <option value = "Link Widget"> Link</option>
+                         <option value = "Image Widget"> Image</option>
                      </select>
 
                      <button className="btn btn-success form-control col-2 addWidget"
@@ -45,17 +62,15 @@ export const WidgetListComponent = ({widgets,deleteWidget,createWidget,updateWid
              {widgets.map((widget, index) =>
                  <li className="list-group-item"
                      key={index}>
-                     {widget.title} (Id: {widget.id}) (Type:{widget.widgetType})
-                     <button className="btn btn-danger float-right"
-                             onClick={() => deleteWidget(widget.id)}> Delete
-                     </button>
                      <div>
-                         {widget.widgetType === 'Heading' && <Heading widget = {widget} updateWidget = {updateWidget}/>}
-                         {widget.widgetType === 'Link'    &&    <Link widget = {widget} updateWidget = {updateWidget}/>}
-                         {widget.widgetType === 'List'    &&    <List widget = {widget} updateWidget = {updateWidget}/>}
-                         {widget.widgetType === 'Image'   &&   <Image widget = {widget} updateWidget = {updateWidget}/>}
-                         {widget.widgetType === 'Paragraph' && <Paragraph widget = {widget} updateWidget = {updateWidget}/>}
+                         {widget.widgetType === 'Heading Widget' && <HeadingWidget widget = {widget} updateWidget = {updateWidget} deleteWidget = {deleteWidget}/>}
+                         {widget.widgetType === 'Link Widget'    &&    <LinkWidget widget = {widget} updateWidget = {updateWidget} deleteWidget = {deleteWidget}/>}
+                         {widget.widgetType === 'List Widget'    &&    <ListWidget widget = {widget} updateWidget = {updateWidget} deleteWidget = {deleteWidget}/>}
+                         {widget.widgetType === 'Image Widget'   &&   <ImageWidget widget = {widget} updateWidget = {updateWidget} deleteWidget = {deleteWidget}/>}
+                         {widget.widgetType === 'Paragraph Widget' && <ParagraphWidget widget = {widget} updateWidget = {updateWidget} deleteWidget = {deleteWidget}/>}
                      </div>
+
+
                  </li>
              )}
          </ul>

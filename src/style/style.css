@@ -52,10 +52,15 @@
     font-family: Carlito;
 }
 
-.selectWidget, .addWidget
+.selectWidget, .addWidget, #text, #selectFld, .selectHeading, .updateHeading, .btn-sm , #toggle
 {
     margin-right: 8px;
     cursor: pointer;
+}
+
+#toggle :hover
+{
+    color: blue;
 }
 
 #body
