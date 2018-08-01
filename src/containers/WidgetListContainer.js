@@ -73,7 +73,8 @@ import styles from "../style/style.css"
                         className= "btn btn-sm btn-success">
                         Save
                     </button>
-                    Preview &nbsp; <ToggleButton value={this.props.previewState}
+                    Preview &nbsp; <ToggleButton
+                                                value={this.props.previewState}
                                                  onToggle = {this.props.updatePreview}
                                                   id ="toggle"/>
                 </div>
@@ -104,13 +105,16 @@ import styles from "../style/style.css"
                                     onClick={ () =>{
                                         let widget = {
                                             title: this.widgetTitle.value,
+                                            widgetType: this.widgetType.value,
                                             id : ((new Date().getTime()/1000)),
-                                            widgetType: this.widgetType.value, size: 1, layout:'ol' ,listItems: '',
-                                            imgLink:'https://picsum.photos/300/200/?random'
-
+                                            size: 1,
+                                            layout:'ol' ,
+                                            listItems: '',
+                                            imgLink:'https://picsum.photos/300/200/?random',
+                                            lorder:(this.props.widgets.length + 1)
                                         }
-                                        this.props.createWidget(widget)
-                                        this.widgetTitle.value = "";
+                                           this.props.createWidget(widget)
+                                            this.widgetTitle.value = "";
                                     }}>
                                 Add
                             </button>
@@ -120,10 +124,13 @@ import styles from "../style/style.css"
 
 
             <WidgetListComponent
-                                   preview = {this.props.previewState}
-                                   updateWidget = {this.props.updateWidget}
-                                   deleteWidget = {this.props.deleteWidget}
-                                   widgets = {this.props.widgets}/>
+                                    moveUp = {this.props.moveUp}
+                                    moveDown = {this.props.moveDown}
+                                    widgetLength ={this.props.widgets.length}
+                                    preview = {this.props.previewState}
+                                    updateWidget = {this.props.updateWidget}
+                                    deleteWidget = {this.props.deleteWidget}
+                                    widgets = {this.props.widgets}/>
                 </ul>
             </div>
         )
@@ -160,6 +167,18 @@ const dispatchToPropsMapper = dispatch => (
 
         updatePreview: () => dispatch({
             type: 'UPDATE_PREVIEW'
+        }),
+
+        moveUp: (lorder,id) => dispatch({
+            type: 'MOVE_UP',
+            lorder:lorder,
+            widgetId:id
+        }),
+
+        moveDown: (lorder,widgetId) => dispatch({
+            type: 'MOVE_DOWN',
+            lorder:lorder,
+            widgetId:widgetId
         }),
 
         saveWidgets: (courseId,moduleId,lessonId) => dispatch({

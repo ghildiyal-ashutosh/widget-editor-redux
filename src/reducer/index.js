@@ -21,11 +21,23 @@ export const WidgetReducer = (state = {widgets:[],preview: false} ,action) =>
             }
             break;
 
+        case 'MOVE_UP':
+            console.log(action.lorder,action.widgetId)
+            return state;
+            break;
+
+        case 'MOVE_DOWN':
+            console.log(action.lorder,action.widgetId)
+            return state;
+            break;
+
         case 'CREATE_WIDGET':
+            console.log(action.widget);
+
             return {
                 widgets: [
-                    action.widget,
-                    ...state.widgets
+                    ...state.widgets,
+                    action.widget
 
                 ]
             }

@@ -8,7 +8,7 @@ import WidgetService from "../services/WidgetService"
 
 import styles from "../style/style.css"
 
-export const  WidgetListComponent  = ({widgets,updateWidget,deleteWidget,preview}) =>
+export const  WidgetListComponent  = ({widgets,updateWidget,deleteWidget,preview,moveUp,moveDown,widgetLength}) =>
 {
         let widgetTitle, widgetType, widgetType2;
 
@@ -21,11 +21,30 @@ export const  WidgetListComponent  = ({widgets,updateWidget,deleteWidget,preview
                             key={index}>
 
                             <div>
-                                {widget.widgetType === 'Heading Widget' && <HeadingWidget widget = {widget} updateWidget = {updateWidget} deleteWidget = {deleteWidget} preview = {preview}/>}
-                                {widget.widgetType === 'Link Widget'    &&    <LinkWidget widget = {widget} updateWidget = {updateWidget} deleteWidget = {deleteWidget} preview = {preview}/>}
-                                {widget.widgetType === 'List Widget'    &&    <ListWidget widget = {widget} updateWidget = {updateWidget} deleteWidget = {deleteWidget} preview = {preview}/>}
-                                {widget.widgetType === 'Image Widget'   &&   <ImageWidget widget = {widget} updateWidget = {updateWidget} deleteWidget = {deleteWidget} preview = {preview}/>}
-                                {widget.widgetType === 'Paragraph Widget' && <ParagraphWidget widget = {widget} updateWidget = {updateWidget} deleteWidget = {deleteWidget} preview = {preview}/>}
+                                {widget.widgetType === 'Heading Widget' &&
+                                <HeadingWidget widget = {widget} updateWidget = {updateWidget}
+                                               deleteWidget = {deleteWidget} preview = {preview}
+                                               length = {widgetLength} up ={moveUp} down = {moveDown}/>}
+
+                                {widget.widgetType === 'Link Widget'    &&
+                                <LinkWidget widget = {widget} updateWidget = {updateWidget}
+                                            deleteWidget = {deleteWidget} preview = {preview}
+                                            length = {widgetLength} up ={moveUp} down = {moveDown}/>}
+
+                                {widget.widgetType === 'List Widget'    &&
+                                <ListWidget widget = {widget} updateWidget = {updateWidget}
+                                            deleteWidget = {deleteWidget} preview = {preview}
+                                            length = {widgetLength} up ={moveUp} down = {moveDown}/>}
+
+                                {widget.widgetType === 'Image Widget'   &&
+                                <ImageWidget widget = {widget} updateWidget = {updateWidget}
+                                             deleteWidget = {deleteWidget} preview = {preview}
+                                             length = {widgetLength} up ={moveUp} down = {moveDown}/>}
+
+                                {widget.widgetType === 'Paragraph Widget' &&
+                                <ParagraphWidget widget = {widget} updateWidget = {updateWidget}
+                                                 deleteWidget = {deleteWidget} preview = {preview}
+                                                 length = {widgetLength} up ={moveUp} down = {moveDown}/>}
                             </div>
 
 
