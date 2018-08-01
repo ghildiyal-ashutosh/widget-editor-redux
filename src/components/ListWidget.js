@@ -80,6 +80,13 @@ export const ListWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
         </select>
         <br/>
 
+        <input hidden={preview}
+               readOnly = "readonly"
+               defaultValue={widget.title}
+               className="form-control">
+        </input>
+
+
                 <h4> Preview-List</h4>
         {widget.layout === "ul" &&
                 <ul>

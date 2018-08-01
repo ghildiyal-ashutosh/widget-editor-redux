@@ -16,9 +16,10 @@ export const  WidgetListComponent  = ({widgets,updateWidget,deleteWidget,preview
         return (
             <div>
                 <br/>
-                {widgets.map((widget, index) =>
+
+                {widgets.sort((a,b) => a.lorder > b.lorder).map((widget) =>
                         <li className="list-group-item"
-                            key={index}>
+                            key={widget.id}>
 
                             <div>
                                 {widget.widgetType === 'Heading Widget' &&

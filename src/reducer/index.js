@@ -4,6 +4,7 @@ import LessonService from "../services/LessonService";
 
 export const WidgetReducer = (state = {widgets:[],preview: false} ,action) =>
 {
+    let fromIndex,toIndex,state2;
     this.widgetService = WidgetService.instance;
     switch(action.type)
     {
@@ -22,18 +23,66 @@ export const WidgetReducer = (state = {widgets:[],preview: false} ,action) =>
             break;
 
         case 'MOVE_UP':
-            console.log(action.lorder,action.widgetId)
-            return state;
-            break;
 
-        case 'MOVE_DOWN':
-            console.log(action.lorder,action.widgetId)
-            return state;
+            fromIndex = state.widgets.findIndex(widget => widget.id === action.widgetId);
+            toIndex = fromIndex--;
+            state2 = JSON.parse(JSON.stringify(state));           // state2 = Object.assign(state);
+            state2.widgets.splice(toIndex, 0, state2.widgets.splice(fromIndex, 1)[0]);
+            return {widgets:
+                    (state2.widgets.map((widget) => {
+                        if(widget.id === action.widgetId)
+                        {
+
+                            widget.lorder = widget.lorder - 1;
+
+                            return widget
+                        }
+                            else if ( widget.lorder === action.lorder-1)
+                        {
+                            widget.lorder = widget.lorder+1;
+                            console.log(widget);
+                            return widget;
+
+                        }
+
+                        else
+                        {
+                            return widget;
+                        }
+                    }))}
+             break;
+
+            case 'MOVE_DOWN':
+
+                fromIndex = state.widgets.findIndex(widget => widget.id === action.widgetId);
+            toIndex = fromIndex++;
+            state2 = JSON.parse(JSON.stringify(state));
+            // state2 = Object.assign(state);
+            state2.widgets.splice(toIndex, 0, state2.widgets.splice(fromIndex, 1)[0]);
+            return {widgets:
+                    (state2.widgets.map((widget) => {
+                if(widget.id === action.widgetId)
+                {
+                    console.log(widget.lorder)
+                    widget.lorder =  widget.lorder+1;
+                    console.log(widget)
+                    return widget;
+                }
+                else if (widget.lorder === action.lorder+1)
+                {
+                    widget.lorder = widget.lorder-1;
+                    console.log(widget.lorder)
+                    return widget;
+                }
+                else
+                {
+                    return widget;
+                }
+            }))}
             break;
 
         case 'CREATE_WIDGET':
-            console.log(action.widget);
-
+         //   console.log(action.widget);
             return {
                 widgets: [
                     ...state.widgets,
