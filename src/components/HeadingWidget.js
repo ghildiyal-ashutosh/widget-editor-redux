@@ -15,7 +15,7 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget}) =>
             ref={node => widgetType = node}
             className=" selectWidget"
             onChange={ () => {
-                let widget1 = {title:widget.title, id :widget.id, widgetType: widgetType.value}
+                let widget1 = {widgetType: widgetType.value}
                 updateWidget(widget1)
                 widgetType.value = ""
                               }}>
@@ -38,8 +38,8 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget}) =>
                 ref={node => headingText = node}
                 className="form-control"
                 onChange={ () => {
-                    let widget1 = {text:headingText.value, id :widget.id, widgetType: widget.widgetType, size:widget.size}
-                    updateWidget(widget1)
+                    widget.text = headingText.value
+                    updateWidget(widget)
                 }}/>
 
                 <br/>
@@ -47,14 +47,15 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget}) =>
             <label htmlFor= "selectFld"> Heading Size</label>
 
             <select
+                defaultValue= "1"
                 ref = {node => headingSize = node}
             id = "selectFld"
             className="form-control"
             onChange={ () => {
-                let widget1 = {id:widget.id, size:headingSize.value, widgetType: widget.widgetType, text:widget.text}
-                updateWidget(widget1)
+                widget.size = parseInt(headingSize.value);
+                updateWidget(widget)
             }}>
-            <option value = "1"> Heading 1</option>
+            <option value ="1"> Heading 1</option>
             <option value = "2"> Heading 2</option>
             <option value = "3"> Heading 3</option>
             <option value = "4"> Heading 4</option>
@@ -72,10 +73,10 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget}) =>
 
 
             <h4> Preview </h4>
-            {widget.size === '1' && <h4> {widget.text}</h4>}
-            {widget.size === '2' && <h3> {widget.text}</h3>}
-            {widget.size === '3' && <h2> {widget.text}</h2>}
-            {widget.size === '4' && <h1> {widget.text}</h1>}
+            {widget.size === 1 && <h4> {widget.text}</h4>}
+            {widget.size === 2 && <h3> {widget.text}</h3>}
+            {widget.size === 3 && <h2> {widget.text}</h2>}
+            {widget.size === 4 && <h1> {widget.text}</h1>}
 
         </div>
     );

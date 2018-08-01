@@ -7,7 +7,7 @@ import {ParagraphWidget} from "./ParagraphWidget"
 import ToggleButton from 'react-toggle-button'
 import styles from "../style/style.css"
 
-export const WidgetListComponent = ({widgets,deleteWidget,createWidget,updateWidget, saveWidget,previewWidget}) =>
+export const WidgetListComponent = ({widgets,deleteWidget,createWidget,updateWidget, saveWidgets,previewWidget}) =>
  {
      let widgetTitle,widgetType,widgetType2;
      let value = 0;
@@ -16,7 +16,7 @@ export const WidgetListComponent = ({widgets,deleteWidget,createWidget,updateWid
          <div
              className= "row float-right">
              <button
-                 onClick={saveWidget}
+                 onClick={saveWidgets}
                  className= "btn btn-sm btn-success">
                      Save
                  </button>
@@ -49,8 +49,8 @@ export const WidgetListComponent = ({widgets,deleteWidget,createWidget,updateWid
                      <button className="btn btn-success form-control col-2 addWidget"
                              onClick={ () =>{
                                  let widget = {title: widgetTitle.value,
-                                               id : (new Date ()).getTime(),
-                                                widgetType: widgetType.value}
+                                               id : ((new Date().getTime()/1000)),
+                                                widgetType: widgetType.value, size: 1}
                                  createWidget(widget)
                                  widgetTitle.value = "";
                              }}>

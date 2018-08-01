@@ -1,16 +1,10 @@
+import WidgetService from "../services/WidgetService"
+import LessonService from "../services/LessonService";
 
-let initialState = {
-    widgets: [
-        {title: 'Widget-1', id:  123, widgetType: 'Heading Widget',text: "Cheebu" },
-        {title: 'Widget-2', id : 223, widgetType: 'Image Widget', imgLink:"https://picsum.photos/300/200/?random" },
-        {title: 'Widget-3', id : 220, widgetType: 'Link Widget', link: "www.youtube.com"},
-        {title: 'Widget-4', id : 226, widgetType: 'List Widget', layout: 'ol', listItems: 'item 1\nitem 2\nitem 3\nitem 4'},
-        {title: 'Widget-5', id : 228, widgetType: 'Paragraph Widget', paraText: "Hello World!!! \n Carpe Diem"},
-    ]
-};
 
-export const WidgetReducer = (state = initialState,action) =>
+export const WidgetReducer = (state = {widgets:[]} ,action) =>
 {
+    this.widgetService = WidgetService.instance;
     switch(action.type)
     {
         case 'DELETE_WIDGET':
@@ -22,12 +16,20 @@ export const WidgetReducer = (state = initialState,action) =>
             break;
 
         case 'CREATE_WIDGET':
+            console.log(state.widgets)
             return {
                 widgets: [
                     ...state.widgets,
                     action.widget
                 ]
             }
+            break;
+
+        case 'SAVE_WIDGETS':
+                console.log(action.ids)
+                console.log(state.widgets)
+                this.widgetService.saveWidgets(action.ids.courseId,action.ids.moduleId,action.ids.lessonId,state.widgets)
+            return state;
             break;
 
         case 'UPDATE_WIDGET':
@@ -42,11 +44,11 @@ export const WidgetReducer = (state = initialState,action) =>
                         return widget
                     }
                     })
-
             }
             break;
         default:
             return state
+
     }
 }
 

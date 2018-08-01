@@ -53,8 +53,6 @@ export default class ModuleEditor extends React.Component
             <div>
             <h1 id ="head"> Editing Module: {this.state.moduleTitle} </h1>
                 <LessonTab courseId = {this.state.courseId} moduleId = {this.state.moduleId}/>
-
-
                 <div>
                     <Route path = "/courses/:courseId/module/:moduleId/lesson/:lessonId"
                            component={LessonEditor}/>
