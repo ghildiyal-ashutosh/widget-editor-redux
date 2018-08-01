@@ -1,12 +1,13 @@
 import React from 'react'
 
-export const LinkWidget = ({widget,updateWidget,deleteWidget}) =>
+export const LinkWidget = ({widget,updateWidget,deleteWidget,preview}) =>
 {
     let widgetText,widgetType;
     return(
         <div>
 
-            <div className="row">
+            <div hidden={preview}
+                className="row">
                 <h3> {widget.widgetType}</h3>
                 <hr/>
                 <span className="float-right">
@@ -34,6 +35,7 @@ export const LinkWidget = ({widget,updateWidget,deleteWidget}) =>
 
 
             <input
+                hidden={preview}
                 readOnly = "readonly"
                defaultValue={widget.link}
                 className="form-control">
@@ -41,6 +43,7 @@ export const LinkWidget = ({widget,updateWidget,deleteWidget}) =>
 
            <br/>
             <label
+                hidden={preview}
                 htmlFor="inputFld"
                    className="form-control">
                 Link Text
@@ -48,6 +51,7 @@ export const LinkWidget = ({widget,updateWidget,deleteWidget}) =>
 
 
             <input
+                hidden={preview}
                 id = "inputFld"
                 placeholder= "update Link"
                 ref={node => widgetText = node}
@@ -59,13 +63,14 @@ export const LinkWidget = ({widget,updateWidget,deleteWidget}) =>
             <br/>
 
             <input
+                hidden={preview}
                 readOnly = "readonly"
                 defaultValue={widget.title}
                 className="form-control">
             </input>
             <br/>
 
-            <h4> Preview</h4>
+            <h4> Preview-Link</h4>
             {widget.link}
 
 

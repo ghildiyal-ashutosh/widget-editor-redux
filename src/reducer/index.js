@@ -2,7 +2,7 @@ import WidgetService from "../services/WidgetService"
 import LessonService from "../services/LessonService";
 
 
-export const WidgetReducer = (state = {widgets:[]} ,action) =>
+export const WidgetReducer = (state = {widgets:[],preview: false} ,action) =>
 {
     this.widgetService = WidgetService.instance;
     switch(action.type)
@@ -24,11 +24,18 @@ export const WidgetReducer = (state = {widgets:[]} ,action) =>
         case 'CREATE_WIDGET':
             return {
                 widgets: [
-                    ...state.widgets,
-                    action.widget
+                    action.widget,
+                    ...state.widgets
+
                 ]
             }
             break;
+
+        case 'UPDATE_PREVIEW':
+            return{
+                widgets:state.widgets,
+                preview: !(state.preview)
+            }
 
         case 'SAVE_WIDGETS':
           console.log(state.widgets);

@@ -1,11 +1,12 @@
 import React from 'react'
 
-export const ListWidget = ({widget,updateWidget,deleteWidget}) =>
+export const ListWidget = ({widget,updateWidget,deleteWidget,preview}) =>
 {
     let widgetText,widgetType,layout;
     return (
     <div>
-        <div className="row">
+        <div hidden={preview}
+            className="row">
             <h3> {widget.widgetType}</h3>
             <hr/>
             <span className="float-right">
@@ -30,6 +31,7 @@ export const ListWidget = ({widget,updateWidget,deleteWidget}) =>
         </div>
 
             <textarea
+                hidden={preview}
                 ref = {node=>widgetText = node}
                 className="form-control"
                 defaultValue = {widget.listItems}
@@ -40,6 +42,7 @@ export const ListWidget = ({widget,updateWidget,deleteWidget}) =>
             <br/>
 
         <select
+            hidden={preview}
             ref={node => layout = node}
              className="form-control"
         onChange={() => {
@@ -51,7 +54,7 @@ export const ListWidget = ({widget,updateWidget,deleteWidget}) =>
         </select>
         <br/>
 
-                <h4> Preview</h4>
+                <h4> Preview-List</h4>
         {widget.layout === "ul" &&
                 <ul>
                 {widget.listItems.split('\n').map((item,index) => (

@@ -1,11 +1,12 @@
 import React from 'react'
 
-export const ImageWidget = ({widget,updateWidget,deleteWidget}) =>
+export const ImageWidget = ({widget,updateWidget,deleteWidget,preview}) =>
 {
     let widgetText,widgetType;
     return(
         <div>
-        <div className="row">
+        <div hidden={preview}
+            className="row">
             <h3> {widget.widgetType}</h3>
             <hr/>
             <span className="float-right">
@@ -30,13 +31,14 @@ export const ImageWidget = ({widget,updateWidget,deleteWidget}) =>
         </div>
             <br/>
 
-            <label className="form-control"
+            <label hidden={preview}
+                className="form-control"
                    htmlFor="inputFld">
                 Image-Link
             </label>
             <br/>
 
-            <input
+            <input hidden={preview}
                 id = "inputFld"
                 defaultValue={widget.imgLink}
                 ref={node => widgetText = node}
@@ -47,7 +49,7 @@ export const ImageWidget = ({widget,updateWidget,deleteWidget}) =>
                 }}/>
             <br/>
 
-            <h4>Preview</h4>
+            <h4>Preview-Image</h4>
             <img
                 alt= "Image Not Yet Loaded"
                 width= "300"

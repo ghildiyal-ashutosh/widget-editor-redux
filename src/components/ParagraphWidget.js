@@ -1,11 +1,12 @@
 import React from 'react'
 
-export const ParagraphWidget = ({widget,updateWidget,deleteWidget}) =>
+export const ParagraphWidget = ({widget,updateWidget,deleteWidget,preview}) =>
 {
     let widgetText,widgetType;
     return(
         <div>
-            <div className="row">
+            <div hidden={preview}
+                className="row">
                 <h3> {widget.widgetType}</h3>
                 <hr/>
                 <span className="float-right">
@@ -31,6 +32,7 @@ export const ParagraphWidget = ({widget,updateWidget,deleteWidget}) =>
             <br/>
 
             <label
+                hidden={preview}
                 className="form-control"
                 htmlFor="inputFld1">
                 Text
@@ -38,6 +40,7 @@ export const ParagraphWidget = ({widget,updateWidget,deleteWidget}) =>
 
 
             <textarea
+                hidden={preview}
                 id = "inputFld1"
                 defaultValue={widget.paraText}
                 ref={node => widgetText = node}
@@ -48,13 +51,14 @@ export const ParagraphWidget = ({widget,updateWidget,deleteWidget}) =>
                 }}/>
             <br/>
             <input
+                hidden={preview}
                 readOnly = "readonly"
                 defaultValue={widget.title}
                 className="form-control">
             </input>
 
             <br/>
-            <h4> Preview</h4>
+            <h4> Preview-Paragraph</h4>
             <div>
             <p>{widget.paraText} </p>
             </div>

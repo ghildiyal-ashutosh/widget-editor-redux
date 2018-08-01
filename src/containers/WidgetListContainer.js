@@ -2,7 +2,11 @@ import {WidgetListComponent} from '../components/WidgetListComponent'
 import {connect} from 'react-redux'
 import React from 'react'
 import WidgetService from "../services/WidgetService";
+
 import ToggleButton from 'react-toggle-button'
+
+import styles from "../style/style.css"
+
 
 
 //widgets,deleteWidget,createWidget,updateWidget, saveWidgets,previewWidget
@@ -63,12 +67,15 @@ import ToggleButton from 'react-toggle-button'
                 <div
                     className= "row float-right">
                     <button
+                        hidden={this.props.previewState}
                         onClick={() => {this.props.saveWidgets(this.props.courseId,
                                         this.props.moduleId,this.props.lessonId)}}
                         className= "btn btn-sm btn-success">
                         Save
                     </button>
-                    Preview <ToggleButton/>
+                    Preview &nbsp; <ToggleButton value={this.props.previewState}
+                                                 onToggle = {this.props.updatePreview}
+                                                  id ="toggle"/>
                 </div>
 
                 <br/><br/><br/>
@@ -76,7 +83,8 @@ import ToggleButton from 'react-toggle-button'
 
                 <ul className="list-group">
 
-                    <li className="list-group-item">
+                    <li hidden={this.props.previewState}
+                        className="list-group-item">
                         <div className="row">
                             <input placeholder="Add New Widget"
                                    ref = {node => this.widgetTitle= node}
@@ -91,11 +99,16 @@ import ToggleButton from 'react-toggle-button'
                                 <option value = "Image Widget"> Image</option>
                             </select>
 
-                            <button className="btn btn-success form-control col-2 addWidget"
+                            <button
+                                className="btn btn-success form-control col-2 addWidget"
                                     onClick={ () =>{
-                                        let widget = {title: this.widgetTitle.value,
+                                        let widget = {
+                                            title: this.widgetTitle.value,
                                             id : ((new Date().getTime()/1000)),
-                                            widgetType: this.widgetType.value, size: 1}
+                                            widgetType: this.widgetType.value, size: 1, layout:'ol' ,listItems: '',
+                                            imgLink:'https://picsum.photos/300/200/?random'
+
+                                        }
                                         this.props.createWidget(widget)
                                         this.widgetTitle.value = "";
                                     }}>
@@ -107,7 +120,8 @@ import ToggleButton from 'react-toggle-button'
 
 
             <WidgetListComponent
-                                   updateWidgets = {this.props.updateWidget}
+                                   preview = {this.props.previewState}
+                                   updateWidget = {this.props.updateWidget}
                                    deleteWidget = {this.props.deleteWidget}
                                    widgets = {this.props.widgets}/>
                 </ul>
@@ -119,6 +133,7 @@ import ToggleButton from 'react-toggle-button'
 
 const stateToPropsMapper = state => (
     {
+        previewState: state.preview,
         widgets: state.widgets,
 
 
@@ -141,6 +156,10 @@ const dispatchToPropsMapper = dispatch => (
         updateWidget: (widget) => dispatch({
             type: 'UPDATE_WIDGET',
             widget: widget
+        }),
+
+        updatePreview: () => dispatch({
+            type: 'UPDATE_PREVIEW'
         }),
 
         saveWidgets: (courseId,moduleId,lessonId) => dispatch({

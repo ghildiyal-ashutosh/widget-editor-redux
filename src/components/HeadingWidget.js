@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from "../style/style.css"
 
-export const HeadingWidget = ({widget,updateWidget,deleteWidget}) =>
+export const HeadingWidget = ({widget,updateWidget,deleteWidget,preview}) =>
 {
     let  widgetType,headingText,headingSize;
     return(
         <div>
-    <div className= "row">
+    <div className= "row" hidden = {preview}>
         <h3> {widget.widgetType}</h3>
         <hr/>
         <span className="float-right">
@@ -29,7 +29,7 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget}) =>
                 onClick={() => deleteWidget(widget.id)}/>
         </span>
     </div>
-            <div>
+            <div hidden={preview}>
 
             <label  htmlFor= "text" > Heading Text</label>
             <input
@@ -64,7 +64,7 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget}) =>
 
             <br/>
 
-            <input
+            <input hidden={preview}
                 readOnly = "readonly"
                 defaultValue={widget.title}
                 className="form-control">
@@ -72,7 +72,7 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget}) =>
             <br/>
 
 
-            <h4> Preview </h4>
+            <h4> Preview-Heading </h4>
             {widget.size === 1 && <h4> {widget.text}</h4>}
             {widget.size === 2 && <h3> {widget.text}</h3>}
             {widget.size === 3 && <h2> {widget.text}</h2>}

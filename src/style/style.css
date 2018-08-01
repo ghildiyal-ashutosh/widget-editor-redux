@@ -18,7 +18,7 @@
     color: blue;
     margin-right: 8px;
 }
-.fa-plus-circle
+.fa-plus-circle,.fa-toggle-on
 {
     color : deepskyblue;
    font-size: 30px;
@@ -60,7 +60,8 @@
 
 #toggle :hover
 {
-    color: blue;
+    color: green;
+
 }
 
 #body
