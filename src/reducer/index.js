@@ -7,7 +7,13 @@ export const WidgetReducer = (state = {widgets:[]} ,action) =>
     this.widgetService = WidgetService.instance;
     switch(action.type)
     {
+        case 'LOAD_MODULES' :
+            return{
+                widgets:action.widgets
+            }
+            break;
         case 'DELETE_WIDGET':
+
             return {
                 widgets:state.widgets.filter(
                     widget => widget.id !== action.widgetId
@@ -16,7 +22,6 @@ export const WidgetReducer = (state = {widgets:[]} ,action) =>
             break;
 
         case 'CREATE_WIDGET':
-            console.log(state.widgets)
             return {
                 widgets: [
                     ...state.widgets,
@@ -26,10 +31,11 @@ export const WidgetReducer = (state = {widgets:[]} ,action) =>
             break;
 
         case 'SAVE_WIDGETS':
-                console.log(action.ids)
-                console.log(state.widgets)
-                this.widgetService.saveWidgets(action.ids.courseId,action.ids.moduleId,action.ids.lessonId,state.widgets)
+          console.log(state.widgets);
+            this.widgetService
+                .saveWidgets(action.courseId,action.moduleId,action.lessonId, state.widgets);
             return state;
+
             break;
 
         case 'UPDATE_WIDGET':

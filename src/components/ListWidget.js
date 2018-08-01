@@ -32,7 +32,7 @@ export const ListWidget = ({widget,updateWidget,deleteWidget}) =>
             <textarea
                 ref = {node=>widgetText = node}
                 className="form-control"
-                value = {widget.listItems}
+                defaultValue = {widget.listItems}
             onChange={ () => {
             widget.listItems = widgetText.value
             updateWidget(widget)}}>

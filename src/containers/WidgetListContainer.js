@@ -2,75 +2,125 @@ import {WidgetListComponent} from '../components/WidgetListComponent'
 import {connect} from 'react-redux'
 import React from 'react'
 import WidgetService from "../services/WidgetService";
-let arr = {'courseId':1, 'moduleId' :1, 'lessonId':1};
-let w = [];
+import ToggleButton from 'react-toggle-button'
 
-/**
-export default class WidgetListContainer extends React.Component {
-    constructor(props) {
+
+//widgets,deleteWidget,createWidget,updateWidget, saveWidgets,previewWidget
+
+ class WidgetListContainer extends React.Component
+ {
+
+    constructor(props)
+    {
+        let widgetTitle,widgetType;
+
         super(props);
 
-        this.state = {
-            widgets: [],
-            ids: {
-                'courseId': this.props.courseId,
-                'moduleId': this.props.moduleId,
-                'lessonId': this.props.lessonId
-            }
-        }
 
-        this.setIds = this.setIds.bind(this);
-        this.widgetService = WidgetService.instance;
-        this.findAllWidgetsForLesson = this.findAllWidgetsForLesson.bind(this);
-    }
-
-
-    componentDidMount() {
 
      //   console.log(this.props.courseId,this.props.moduleId,this.props.lessonId)
 
-        this.setIds(this.props.courseId, this.props.moduleId, this.props.lessonId);
-        this.findAllWidgetsForLesson(this.props.courseId, this.props.moduleId, this.props.lessonId);
+
+        this.setWidgets = this.setWidgets.bind(this);
+
+
 
     }
 
-    componentWillReceiveProps(newProps) {
-      //  console.log(newProps.courseId,newProps.moduleId,newProps.lessonId);
+    componentDidMount()
 
-        this.setIds(newProps.courseId, newProps.moduleId, newProps.lessonId);
-        this.findAllWidgetsForLesson(newProps.courseId, newProps.moduleId, newProps.lessonId);
+    {
 
     }
 
-    setIds(courseId, moduleId, lessonId) {
-        this.setState({ids: {'courseId': courseId, 'moduleId': moduleId, 'lessonId': lessonId}});
-        arr = this.state.ids;
+    componentWillReceiveProps(newProps)
+    {
+
+        if (newProps.lessonId !== this.props.lessonId)
+        {
+
+            this.setWidgets(newProps.courseId, newProps.moduleId, newProps.lessonId);
+
+        }
+
+
+
     }
 
-    findAllWidgetsForLesson(courseId, moduleId, lessonId) {
-        this.widgetService
-            .findAllWidgetsForLesson(courseId, moduleId, lessonId)
-            .then((widgets) => {
-                this.setState({widgets: widgets})
-            });
 
-        w = this.state.widgets;
+
+    setWidgets(courseId,moduleId,lessonId)
+    {
+        this.props.loadAllWidgets(courseId,moduleId,lessonId)
     }
+
 
 
     render() {
         return (
-            <h2> Widget- Section </h2>
+            <div>
+
+                <div
+                    className= "row float-right">
+                    <button
+                        onClick={() => {this.props.saveWidgets(this.props.courseId,
+                                        this.props.moduleId,this.props.lessonId)}}
+                        className= "btn btn-sm btn-success">
+                        Save
+                    </button>
+                    Preview <ToggleButton/>
+                </div>
+
+                <br/><br/><br/>
+
+
+                <ul className="list-group">
+
+                    <li className="list-group-item">
+                        <div className="row">
+                            <input placeholder="Add New Widget"
+                                   ref = {node => this.widgetTitle= node}
+                                   className="form-control col-6"/>
+
+                            <select ref = {node => this.widgetType = node}
+                                    className="col-3  selectWidget">
+                                <option value = "List Widget"> List</option>
+                                <option value = "Paragraph Widget"> Paragraph</option>
+                                <option value = "Heading Widget"> Heading</option>
+                                <option value = "Link Widget"> Link</option>
+                                <option value = "Image Widget"> Image</option>
+                            </select>
+
+                            <button className="btn btn-success form-control col-2 addWidget"
+                                    onClick={ () =>{
+                                        let widget = {title: this.widgetTitle.value,
+                                            id : ((new Date().getTime()/1000)),
+                                            widgetType: this.widgetType.value, size: 1}
+                                        this.props.createWidget(widget)
+                                        this.widgetTitle.value = "";
+                                    }}>
+                                Add
+                            </button>
+
+                        </div>
+                    </li>
+
+
+            <WidgetListComponent
+                                   updateWidgets = {this.props.updateWidget}
+                                   deleteWidget = {this.props.deleteWidget}
+                                   widgets = {this.props.widgets}/>
+                </ul>
+            </div>
         )
-
-
     }
 }
- */
+
 
 const stateToPropsMapper = state => (
     {
-        widgets: state.widgets
+        widgets: state.widgets,
+
 
     }
 )
@@ -82,7 +132,7 @@ const dispatchToPropsMapper = dispatch => (
             widgetId: widgetId
         }),
 
-        createWidget: (widget,ids) => dispatch({
+        createWidget: (widget) => dispatch({
             type: 'CREATE_WIDGET',
             widget : widget,
 
@@ -93,14 +143,32 @@ const dispatchToPropsMapper = dispatch => (
             widget: widget
         }),
 
-        saveWidgets: () => dispatch({
-            type: 'SAVE_WIDGETS',
-            ids: arr
-        })
+        saveWidgets: (courseId,moduleId,lessonId) => dispatch({
+    type:'SAVE_WIDGETS',
+    courseId: courseId,
+    moduleId:moduleId,
+    lessonId:lessonId
+}),
+
+
+        loadAllWidgets: (courseId,moduleId,lessonId) => {
+
+            this.widgetService = WidgetService.instance;
+
+            this.widgetService
+                .findAllWidgetsForLesson(courseId,moduleId,lessonId)
+                .then((widgets) => dispatch({
+
+                    type:'LOAD_MODULES',
+                    widgets:widgets
+                }))
+
+
+        }
     }
 )
 
-export const App = connect(stateToPropsMapper,dispatchToPropsMapper)(WidgetListComponent)
+export const App = connect(stateToPropsMapper,dispatchToPropsMapper)(WidgetListContainer)
 
 
 
