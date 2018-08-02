@@ -1,6 +1,6 @@
 let _singleton = Symbol();
-const WIDGET_API_URL = 'http://localhost:8080/api/course/CID/module/MID/lesson/LID/widget';
-// const WIDGET_API_URL = 'https://webdev-2.herokuapp.com/api/course/CID/module/MID/lesson/LID/widget'
+//const WIDGET_API_URL = 'http://localhost:8080/api/course/CID/module/MID/lesson/LID/widget'
+const WIDGET_API_URL = 'https://webdev-2.herokuapp.com/api/course/CID/module/MID/lesson/LID/widget'
 export default class WidgetService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken) {
@@ -16,7 +16,8 @@ export default class WidgetService {
 
     findWidgetById(widgetId)
     {
-        var url = "http://localhost:8080/api/widget" + '/'+ widgetId
+       // var url = "http://localhost:8080/api/widget" + '/'+ widgetId
+       var url =  "https://webdev-2.herokuapp.com/api/widget" + '/'+ widgetId
         return fetch(url)
             .then(function (response) {
                 return response.json();
@@ -27,7 +28,8 @@ export default class WidgetService {
 
     findAllWidgets()
     {
-        var url = "http://localhost:8080/api/widget"
+       // var url = "http://localhost:8080/api/widget"
+        var url =  "https://webdev-2.herokuapp.com/api/widget"
         return fetch(url)
             .then(function (response) {
                 return response.json();
@@ -63,7 +65,8 @@ export default class WidgetService {
 
     updateWidget(widgetId,newWidget)
     {
-        var url = "api/widget/" + widgetId;
+      //  var url = "api/widget/" + widgetId;
+        var url =  "https://webdev-2.herokuapp.com/api/widget" + '/'+ widgetId
         return fetch(url,
             {
                 method : 'PUT',
@@ -79,8 +82,8 @@ export default class WidgetService {
 
     deleteWidget(widgetId)
     {
-        var url = "api/widget/" + widgetId;
-
+       // var url = "api/widget/" + widgetId;
+        var url =  "https://webdev-2.herokuapp.com/api/widget" + '/'+ widgetId
         return fetch(url,
             {
                 method:'DELETE'
