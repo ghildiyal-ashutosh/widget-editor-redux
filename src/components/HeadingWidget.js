@@ -35,7 +35,7 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget,preview,up,down,
 
        <button className="btn">
         <select
-            value = {widget.widgetType}
+            defaultValue = {widget.widgetType}
             ref={node => widgetType = node}
             className= "selectWidget"
             onChange={ () => {
@@ -62,6 +62,7 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget,preview,up,down,
 
             <label  htmlFor= "text" > Heading Text</label>
             <input
+                placeholder="Add Heading Text"
                 id = "text"
                 defaultValue={widget.text}
                 ref={node => headingText = node}
@@ -76,7 +77,7 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget,preview,up,down,
             <label htmlFor= "selectFld"> Heading Size</label>
 
             <select
-                defaultValue= "1"
+                defaultValue= {widget.size}
                 ref = {node => headingSize = node}
             id = "selectFld"
             className="form-control"

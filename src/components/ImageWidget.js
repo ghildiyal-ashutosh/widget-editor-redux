@@ -65,6 +65,7 @@ export const ImageWidget = ({widget,updateWidget,deleteWidget,preview,up,down,le
             <br/>
 
             <input hidden={preview}
+                   placeholder="Image URL"
                 id = "inputFld"
                 defaultValue={widget.imgLink}
                 ref={node => widgetText = node}

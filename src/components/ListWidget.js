@@ -57,6 +57,7 @@ export const ListWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
         </div>
 
             <textarea
+                placeholder="Enter One List Item Per Line"
                 hidden={preview}
                 ref = {node=>widgetText = node}
                 className="form-control"
@@ -68,6 +69,7 @@ export const ListWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
             <br/>
 
         <select
+            defaultValue={widget.layout}
             hidden={preview}
             ref={node => layout = node}
              className="form-control"

@@ -2,7 +2,7 @@ import React from 'react'
 
 export const LinkWidget = ({widget,updateWidget,deleteWidget,preview,up,down,length}) =>
 {
-    let widgetText,widgetType;
+    let widgetText,widgetType,linkText;
     return(
         <div>
 
@@ -61,10 +61,15 @@ export const LinkWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
 
 
             <input
+                placeholder= "Enter URL"
+                ref = {node =>linkText = node}
                 hidden={preview}
-                readOnly = "readonly"
                defaultValue={widget.link}
-                className="form-control">
+                className="form-control"
+              onChange={ () => {
+                  let widget1 = {link:widgetText.value, id :widget.id, widgetType: widget.widgetType, linkText:linkText.value}
+                  updateWidget(widget1)
+              }}>
             </input>
 
            <br/>
@@ -79,13 +84,22 @@ export const LinkWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
             <input
                 hidden={preview}
                 id = "inputFld"
-                placeholder= "update Link"
+                placeholder= "Link-Text"
                 ref={node => widgetText = node}
                 className="form-control"
                 onChange={ () => {
                     let widget1 = {link:widgetText.value, id :widget.id, widgetType: widget.widgetType}
                     updateWidget(widget1)
                 }}/>
+            <br/>
+
+            <input
+                hidden={preview}
+                readOnly = "readonly"
+                defaultValue={widget.linkText}
+                className="form-control">
+            </input>
+
             <br/>
 
             <input

@@ -91,7 +91,8 @@ import styles from "../style/style.css"
                                    ref = {node => this.widgetTitle= node}
                                    className="form-control col-6"/>
 
-                            <select ref = {node => this.widgetType = node}
+                            <select defaultValue="Heading Widget"
+                                ref = {node => this.widgetType = node}
                                     className="col-3  selectWidget">
                                 <option value = "List Widget"> List</option>
                                 <option value = "Paragraph Widget"> Paragraph</option>
@@ -108,7 +109,7 @@ import styles from "../style/style.css"
                                             widgetType: this.widgetType.value,
                                             id : ((new Date().getTime()/1000)),
                                             size: 1,
-                                            layout:'ol' ,
+                                            layout:'ul' ,
                                             listItems: '',
                                             imgLink:'https://picsum.photos/300/200/?random',
                                             lorder:(this.props.widgets.length + 1)

@@ -68,6 +68,7 @@ export const ParagraphWidget = ({widget,updateWidget,deleteWidget,preview,up,dow
 
             <textarea
                 hidden={preview}
+                placeholder="Paragraph Text"
                 id = "inputFld1"
                 defaultValue={widget.paraText}
                 ref={node => widgetText = node}
