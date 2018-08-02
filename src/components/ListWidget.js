@@ -2,7 +2,7 @@ import React from 'react'
 
 export const ListWidget = ({widget,updateWidget,deleteWidget,preview,up,down,length}) =>
 {
-    let widgetText,widgetType,layout;
+    let widgetText,widgetType,layout,widgetName;
     return (
     <div>
         <div  hidden={preview}
@@ -38,7 +38,10 @@ export const ListWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
             ref={node => widgetType = node}
             className= "selectWidget"
             onChange={ () => {
-                let widget1 = {title:widget.title, id :widget.id, widgetType: widgetType.value}
+                let widget1 = {title:widget.title, id :widget.id,
+                    widgetType: widgetType.value, link:widget.link,
+                    text: widget.text, size: widget.size,
+                    layout:widget.layout,lorder:widget.lorder}
                 updateWidget(widget1)
 
             }}>
@@ -61,9 +64,9 @@ export const ListWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
                 hidden={preview}
                 ref = {node=>widgetText = node}
                 className="form-control"
-                defaultValue = {widget.listItems}
+                defaultValue = {widget.text}
             onChange={ () => {
-            widget.listItems = widgetText.value
+            widget.text = widgetText.value
             updateWidget(widget)}}>
             </textarea>
             <br/>
@@ -82,24 +85,37 @@ export const ListWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
         </select>
         <br/>
 
-        <input hidden={preview}
-               readOnly = "readonly"
-               defaultValue={widget.title}
-               className="form-control">
-        </input>
+        <label
+            hidden={preview}
+            className="form-control"
+            htmlFor= "widgetName"> Widget-Name</label>
+
+        <input
+            id = "widgetName"
+            ref = {node => widgetName = node}
+            hidden={preview}
+            placeholder="Enter Widget Name"
+            defaultValue={widget.title}
+            className="form-control"
+            onChange={ () => {
+                widget.title = widgetName.value;
+                updateWidget(widget)
+            }}/>
+
+        <br/>
 
 
                 <h4> Preview-List</h4>
         {widget.layout === "ul" &&
                 <ul>
-                {widget.listItems.split('\n').map((item,index) => (
+                {widget.text.split('\n').map((item, index) => (
                     <li key = {index}>{item}</li>
                 ))}
                 </ul>}
 
         {widget.layout === "ol" &&
         <ol>
-            {widget.listItems.split('\n').map((item,index) => (
+            {widget.text.split('\n').map((item, index) => (
                 <li key = {index}>{item}</li>
             ))}
         </ol>}

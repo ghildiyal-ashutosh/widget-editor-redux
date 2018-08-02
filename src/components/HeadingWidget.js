@@ -3,7 +3,7 @@ import styles from "../style/style.css"
 
 export const HeadingWidget = ({widget,updateWidget,deleteWidget,preview,up,down,length}) =>
 {
-    let  widgetType,headingText,headingSize;
+    let  widgetType,headingText,headingSize,widgetName;
     return(
         <div>
             <div  hidden={preview}
@@ -39,7 +39,10 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget,preview,up,down,
             ref={node => widgetType = node}
             className= "selectWidget"
             onChange={ () => {
-                let widget1 = {title:widget.title, id :widget.id, widgetType: widgetType.value}
+                let widget1 = {title:widget.title, id :widget.id,
+                               widgetType: widgetType.value, link:widget.link,
+                               text: widget.text, size: widget.size,
+                               layout:widget.layout,lorder:widget.lorder}
                 updateWidget(widget1)
 
             }}>
@@ -94,11 +97,22 @@ export const HeadingWidget = ({widget,updateWidget,deleteWidget,preview,up,down,
 
             <br/>
 
-            <input hidden={preview}
-                readOnly = "readonly"
+            <label
+                hidden={preview}
+                className="form-control"
+                htmlFor= "widgetName"> Widget-Name</label>
+
+            <input
+                id = "widgetName"
+                ref = {node => widgetName = node}
+                hidden={preview}
+                placeholder="Enter Widget Name"
                 defaultValue={widget.title}
-                className="form-control">
-            </input>
+                className="form-control"
+                onChange={ () => {
+                    widget.title = widgetName.value;
+                    updateWidget(widget)
+                }}/>
             <br/>
 
 

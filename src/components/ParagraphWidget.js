@@ -2,7 +2,7 @@ import React from 'react'
 
 export const ParagraphWidget = ({widget,updateWidget,deleteWidget,preview,up,down,length}) =>
 {
-    let widgetText,widgetType;
+    let widgetText,widgetType,widgetName;
     return(
         <div>
              <div  hidden={preview}
@@ -39,7 +39,11 @@ export const ParagraphWidget = ({widget,updateWidget,deleteWidget,preview,up,dow
             ref={node => widgetType = node}
             className= "selectWidget"
             onChange={ () => {
-                let widget1 = {title:widget.title, id :widget.id, widgetType: widgetType.value}
+                let widget1 = {title:widget.title, id :widget.id,
+                    widgetType: widgetType.value, link:widget.link,
+                    text: widget.text, size: widget.size,
+                    layout:widget.layout,lorder:widget.lorder}
+
                 updateWidget(widget1)
 
             }}>
@@ -70,25 +74,34 @@ export const ParagraphWidget = ({widget,updateWidget,deleteWidget,preview,up,dow
                 hidden={preview}
                 placeholder="Paragraph Text"
                 id = "inputFld1"
-                defaultValue={widget.paraText}
+                defaultValue={widget.text}
                 ref={node => widgetText = node}
                 className="form-control"
                 onChange={ () => {
-                    let widget1 = {paraText:widgetText.value, id :widget.id, widgetType: widget.widgetType}
-                    updateWidget(widget1)
+                   widget.text = widgetText.value;
+                    updateWidget(widget)
                 }}/>
             <br/>
-            <input
+            <label
                 hidden={preview}
-                readOnly = "readonly"
+                className="form-control"
+                htmlFor= "widgetName"> Widget-Name</label>
+            <input
+                id = "widgetName"
+                ref = {node => widgetName = node}
+                hidden={preview}
+                placeholder="Enter Widget Name"
                 defaultValue={widget.title}
-                className="form-control">
-            </input>
+                className="form-control"
+                onChange={ () => {
+                    widget.title = widgetName.value;
+                    updateWidget(widget)
+                }}/>
 
             <br/>
             <h4> Preview-Paragraph</h4>
             <div>
-            <p>{widget.paraText} </p>
+            <p>{widget.text} </p>
             </div>
         </div>
 

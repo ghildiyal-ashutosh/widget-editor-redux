@@ -2,7 +2,7 @@ import React from 'react'
 
 export const LinkWidget = ({widget,updateWidget,deleteWidget,preview,up,down,length}) =>
 {
-    let widgetText,widgetType,linkText;
+    let widgetText,widgetType,linkText,widgetName;
     return(
         <div>
 
@@ -39,7 +39,11 @@ export const LinkWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
             ref={node => widgetType = node}
             className= "selectWidget"
             onChange={ () => {
-                let widget1 = {title:widget.title, id :widget.id, widgetType: widgetType.value}
+                let widget1 = {title:widget.title, id :widget.id,
+                    widgetType: widgetType.value, link:widget.link,
+                    text: widget.text, size: widget.size,
+                    layout:widget.layout,lorder:widget.lorder}
+
                 updateWidget(widget1)
 
             }}>
@@ -61,14 +65,14 @@ export const LinkWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
 
 
             <input
-                placeholder= "Enter URL"
+                placeholder= "Enter-URL"
                 ref = {node =>linkText = node}
                 hidden={preview}
                defaultValue={widget.link}
                 className="form-control"
               onChange={ () => {
-                  let widget1 = {link:widgetText.value, id :widget.id, widgetType: widget.widgetType, linkText:linkText.value}
-                  updateWidget(widget1)
+                 widget.link = linkText.value;
+                  updateWidget(widget)
               }}>
             </input>
 
@@ -88,30 +92,37 @@ export const LinkWidget = ({widget,updateWidget,deleteWidget,preview,up,down,len
                 ref={node => widgetText = node}
                 className="form-control"
                 onChange={ () => {
-                    let widget1 = {link:widgetText.value, id :widget.id, widgetType: widget.widgetType}
-                    updateWidget(widget1)
+                    widget.text = widgetText.value;
+                    updateWidget(widget)
                 }}/>
             <br/>
 
-            <input
-                hidden={preview}
-                readOnly = "readonly"
-                defaultValue={widget.linkText}
-                className="form-control">
-            </input>
+            <h4> Preview Link-URL </h4>
+                {widget.link}
 
             <br/>
 
-            <input
+            <label
                 hidden={preview}
-                readOnly = "readonly"
+                className="form-control"
+                   htmlFor= "widgetName"> Widget-Name</label>
+
+            <input
+                id = "widgetName"
+                ref = {node => widgetName = node}
+                hidden={preview}
+                placeholder="Enter Widget Name"
                 defaultValue={widget.title}
-                className="form-control">
-            </input>
+                className="form-control"
+                onChange={ () => {
+                    widget.title = widgetName.value;
+                    updateWidget(widget)
+                }}/>
+
             <br/>
 
-            <h4> Preview-Link</h4>
-            {widget.link}
+            <h4> Preview Link-Text</h4>
+            {widget.text}
 
 
         </div>

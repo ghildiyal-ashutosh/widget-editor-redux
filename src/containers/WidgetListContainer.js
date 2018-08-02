@@ -110,8 +110,8 @@ import styles from "../style/style.css"
                                             id : ((new Date().getTime()/1000)),
                                             size: 1,
                                             layout:'ul' ,
-                                            listItems: '',
-                                            imgLink:'https://picsum.photos/300/200/?random',
+                                            text: '',
+                                            link:'https://picsum.photos/300/200/?random',
                                             lorder:(this.props.widgets.length + 1)
                                         }
                                            this.props.createWidget(widget)

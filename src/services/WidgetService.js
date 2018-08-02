@@ -14,14 +14,26 @@ export default class WidgetService {
         return (this[_singleton]);
     }
 
-    findAllWidgets()
+    findWidgetById(widgetId)
     {
-        var url = "http://localhost:8080/api/course/module/lesson/widget/findAllWidgets"
+        var url = "http://localhost:8080/api/widget" + '/'+ widgetId
         return fetch(url)
             .then(function (response) {
                 return response.json();
             });
     }
+
+
+
+    findAllWidgets()
+    {
+        var url = "http://localhost:8080/api/widget"
+        return fetch(url)
+            .then(function (response) {
+                return response.json();
+            });
+    }
+
 
     saveWidgets(courseId, moduleId, lessonId,widgetList)
     {
@@ -46,6 +58,34 @@ export default class WidgetService {
             .then(function(response){
                 return response.json();
             });
+    }
+
+
+    updateWidget(widgetId,newWidget)
+    {
+        var url = "api/widget/" + widgetId;
+        return fetch(url,
+            {
+                method : 'PUT',
+                body :JSON.stringify(newWidget),
+                headers:
+                    {'Content-Type' : 'application/json'}
+
+            }).then (function (response) {
+                return response.json();
+
+            });
+    }
+
+    deleteWidget(widgetId)
+    {
+        var url = "api/widget/" + widgetId;
+
+        return fetch(url,
+            {
+                method:'DELETE'
+            });
+
     }
 
 

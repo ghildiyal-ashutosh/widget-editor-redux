@@ -2,7 +2,7 @@ import React from 'react'
 
 export const ImageWidget = ({widget,updateWidget,deleteWidget,preview,up,down,length}) =>
 {
-    let widgetText,widgetType;
+    let widgetText,widgetType,widgetName;
     return(
         <div>
             <div  hidden={preview}
@@ -38,7 +38,10 @@ export const ImageWidget = ({widget,updateWidget,deleteWidget,preview,up,down,le
             ref={node => widgetType = node}
             className= "selectWidget"
             onChange={ () => {
-                let widget1 = {title:widget.title, id :widget.id, widgetType: widgetType.value}
+                let widget1 = {title:widget.title, id :widget.id,
+                    widgetType: widgetType.value, link:widget.link,
+                    text: widget.text, size: widget.size,
+                    layout:widget.layout,lorder:widget.lorder}
                 updateWidget(widget1)
 
             }}>
@@ -67,21 +70,39 @@ export const ImageWidget = ({widget,updateWidget,deleteWidget,preview,up,down,le
             <input hidden={preview}
                    placeholder="Image URL"
                 id = "inputFld"
-                defaultValue={widget.imgLink}
+                defaultValue={widget.link}
                 ref={node => widgetText = node}
                 className="form-control"
                 onChange={ () => {
-                    let widget1 = {imgLink:widgetText.value, id :widget.id, widgetType: widget.widgetType}
-                    updateWidget(widget1)
+                    widget.link = widgetText.value;
+                    updateWidget(widget)
                 }}/>
             <br/>
+            <label
+                hidden={preview}
+                className="form-control"
+                htmlFor= "widgetName"> Widget-Name</label>
 
+            <input
+                id = "widgetName"
+                ref = {node => widgetName = node}
+                hidden={preview}
+                placeholder="Enter Widget Name"
+                defaultValue={widget.title}
+                className="form-control"
+                onChange={ () => {
+                    widget.title = widgetName.value;
+                    updateWidget(widget)
+                }}/>
+
+
+<br/>
             <h4>Preview-Image</h4>
             <img
                 alt= "Image Not Yet Loaded"
                 width= "300"
                 height="200"
-                src={widget.imgLink}/>
+                src={widget.link}/>
         </div>
     )
 }
